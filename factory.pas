@@ -42,12 +42,6 @@ end;
 
 implementation
 
-
-
-{ TFactory }
-
-
-
 { TFactory }
 
 function TFactory.CreateProduct(Name: String): IProduct;
