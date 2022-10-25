@@ -32,7 +32,7 @@ type
     function ToString: String;
   end;
 
-  // Interface required in order to use counting reference
+  // Interface required to use counting reference
   IUserBuilder = interface
     procedure BuildName(Name: String);
     procedure BuildEmail(Email: String);

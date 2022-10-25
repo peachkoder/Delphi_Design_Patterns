@@ -154,6 +154,7 @@
         <DCCReference Include="Builder.pas"/>
         <DCCReference Include="factory.pas"/>
         <DCCReference Include="singleton.pas"/>
+        <DCCReference Include="factory2.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

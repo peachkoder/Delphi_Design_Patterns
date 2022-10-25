@@ -8,7 +8,8 @@ uses
   System.SysUtils,
   Builder in 'Builder.pas',
   factory in 'factory.pas',
-  singleton in 'singleton.pas';
+  singleton in 'singleton.pas',
+  factory2 in 'factory2.pas';
 
 begin
 

@@ -8,6 +8,7 @@ type
 
 TSingleton = class
 strict private
+  class var FCounter: Integer;
   class var FInstance:  TSingleton;
   constructor Create;
 public
@@ -19,6 +20,7 @@ end;
 // Thread Safe singleton. SLOWER but Safer
 TSingletonSafe = class
 strict private
+  class var FCounter: Integer;
   class var FCriticalSection: TCriticalSection;
   class var FInstance:  TSingleton;
   constructor Create;
@@ -53,13 +55,15 @@ begin
    begin
     FInstance := TSingleton.Create;
    end;
-
+   Inc(FCounter);
    result := FInstance;
 end;
 
 class procedure TSingleton.FreeInstance;
 begin
-  FreeAndNil(FInstance)       ;
+  Dec(FCounter) ;
+  if (FCounter <= 0) then
+    FreeAndNil(FInstance)       ;
 end;
 
 function TSingleton.ToString: String;
@@ -94,6 +98,7 @@ begin
       // release and clean up de code
       FCriticalSection.Release;
       FreeAndNil(FCriticalSection);
+      Inc(FCounter);
       result := FInstance;
     end;
   end;
@@ -101,8 +106,12 @@ end;
 
 class procedure TSingletonSafe.FreeInstance;
 begin
+  Dec(FCounter);
+  if(FCounter <= 0) then
+  begin
     FreeAndNil(FInstance);
     FreeAndNil(FCriticalSection);
+  end;
 end;
 
 class function TSingletonSafe.ToString: String;
@@ -129,7 +138,7 @@ begin
       finally
         cs.Release;
         FreeAndNil(cs);
-       // instance.FreeInstance;
+        instance.FreeInstance;
       end;
     end
     ).Start;
