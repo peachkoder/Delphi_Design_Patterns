@@ -15,7 +15,11 @@ interface
 
 type
 
-  TUser = class
+  IUser = interface
+
+  end;
+
+  TUser = class(TInterfacedObject, IUser)
   private
     FName     :  String;
     FEmail    :  String;

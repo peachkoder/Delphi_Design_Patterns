@@ -36,7 +36,7 @@ IFactory = interface
 end;
 
 TFactory = class(TInterfacedObject, IFactory)
-  function CreateProduct(Name: String): IProduct;
+   function CreateProduct(Name: String): IProduct;
 end;
 
 

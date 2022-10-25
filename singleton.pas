@@ -2,6 +2,8 @@ unit singleton;
 
 interface
 
+uses SyncObjs;
+
 type
 
 TSingleton = class
@@ -10,44 +12,54 @@ strict private
   constructor Create;
 public
   class function CreateInstance: TSingleton;
-  procedure FreeInstance; override;
-  function ToString: String;
+  class procedure FreeInstance; //override;
+   function ToString: String;
 end;
 
 // Thread Safe singleton. SLOWER but Safer
 TSingletonSafe = class
 strict private
+  class var FCriticalSection: TCriticalSection;
   class var FInstance:  TSingleton;
   constructor Create;
 public
   class function CreateInstance: TSingleton;
-  procedure FreeInstance; override;
-  function ToString: String;
-  
+  class procedure FreeInstance;
+  class function ToString: String;
+
+end;
+
+// The main goal of this class is test the TSingletonSafe concurrency
+TSingleFactory = class
+public
+ class procedure TestConcurrency;
 end;
 
 implementation
 
-uses System.Classes, System.SysUtils, SyncObjs;
+uses System.Classes, System.SysUtils;
 
 { TSingleton }
 
 constructor TSingleton.Create;
 begin
-
+   //strict protected don't use
+   //method was hiden from user
 end;
 
 class function TSingleton.CreateInstance: TSingleton;
 begin
    if FInstance = nil then
+   begin
     FInstance := TSingleton.Create;
+   end;
 
    result := FInstance;
 end;
 
-procedure TSingleton.FreeInstance;
+class procedure TSingleton.FreeInstance;
 begin
-  if FInstance <> nil then FInstance.Free;
+  FreeAndNil(FInstance)       ;
 end;
 
 function TSingleton.ToString: String;
@@ -59,42 +71,69 @@ end;
 
 constructor TSingletonSafe.Create;
 begin
-
+  //strict protected don't use
+  //method was hiden from user
 end;
 
 class function TSingletonSafe.CreateInstance: TSingleton;
-var cs: TCriticalSection;
 begin
+  // checks if the instance is null
   if FInstance = nil then
   begin
-    cs := TCriticalSection.Create; 
+    // creates critical section, it'll lock the following code
+    FCriticalSection := TCriticalSection.Create;
     try
-      //TThread.CreateAnonymousThread(
-      //  procedure ()
-        begin
-          cs.Acquire;
-          if FInstance = nil then
-            FInstance := TSingleton.Create; 
-          cs.Release;
-        end    ;
-     // );
+      // locks the resource
+      FCriticalSection.Acquire;
+      // checks again if instance remains null
+      // this is important because another thread could change
+      // instance state before this call.
+      if FInstance = nil then
+          FInstance := TSingleton.Create;
     finally
-      cs.Free;
+      // release and clean up de code
+      FCriticalSection.Release;
+      FreeAndNil(FCriticalSection);
       result := FInstance;
     end;
   end;
-
 end;
 
-procedure TSingletonSafe.FreeInstance;
+class procedure TSingletonSafe.FreeInstance;
 begin
-  inherited;
-
+    FreeAndNil(FInstance);
+    FreeAndNil(FCriticalSection);
 end;
 
-function TSingletonSafe.ToString: String;
+class function TSingletonSafe.ToString: String;
 begin
   result := String.Parse(integer(@FInstance));
+end;
+
+{ TSingleFactory }
+
+class procedure TSingleFactory.TestConcurrency;
+begin
+  for var i := 1 to 20 do
+  begin
+    TThread.CreateAnonymousThread(
+    procedure ()
+    begin
+      var instance := TSingletonSafe.CreateInstance;
+      var cs := TCriticalSection.Create;
+      try
+        cs.Acquire;
+
+        Writeln(Format('Thread n.º= %d. Instace Address: %s' ,
+               [TThread.CurrentThread.ThreadID, instance.ToString]));
+      finally
+        cs.Release;
+        FreeAndNil(cs);
+       // instance.FreeInstance;
+      end;
+    end
+    ).Start;
+  end;
 end;
 
 end.

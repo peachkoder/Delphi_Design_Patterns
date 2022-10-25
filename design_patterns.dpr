@@ -12,18 +12,25 @@ uses
 
 begin
 
+  IsConsole := false;
+  ReportMemoryLeaksOnShutdown := true;
+
+
   // Creational: Builder
   var User := TUserDirector.Construct(TUserBuilder.Create());
   writeln(User.ToString);
+   Writeln('--------------------------------------------------');
 
   // Creational: Factory
   var factory   := TFactory.Create;
   var tablet    := factory.CreateProduct('tablet');
   var cellular  := factory.CreateProduct('cellular');
   var camera    := factory.CreateProduct('camera');
-  writeln(CurrToStr(tablet.GetPrice));
-  writeln(CurrToStr(cellular.GetPrice));
-  writeln(CurrToStr(camera.GetPrice));
+  writeln(Format('Gadget: Tablet | Price: %s', [CurrToStr(tablet.GetPrice)] ));
+  writeln(Format('Gadget: cellular | Price: %s', [CurrToStr(cellular.GetPrice)] ));
+  writeln(Format('Gadget: camera | Price: %s', [CurrToStr(camera.GetPrice)] ));
+  factory.free;
+  Writeln('--------------------------------------------------');
 
   // Creational: Singleton
   var singleton := TSingleton.CreateInstance;
@@ -32,6 +39,7 @@ begin
   writeln('Singleton1 address: ' + singleton1.ToString);
   singleton.FreeInstance;
   singleton1.FreeInstance;
+  Writeln('--------------------------------------------------');
 
   var singSafe := TSingletonSafe.CreateInstance;
   var singSafe1 := TSingletonSafe.CreateInstance;
@@ -39,6 +47,13 @@ begin
   writeln('SingletonSafe1 address: ' + singSafe1.ToString);
   singSafe.FreeInstance;
   singSafe1.FreeInstance;
+  Writeln('--------------------------------------------------');
+
+  TSingleFactory.TestConcurrency;
+   Writeln('--------------------------------------------------');
+
+  var str: String;
+  Readln(str);
 
 
   try
