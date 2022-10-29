@@ -57,8 +57,9 @@ unit PeachKoder.Collection.Hashset;
 interface
 
 uses
-  Generics.Collections
+  System.Generics.Collections
   ,System.SysUtils
+  ,System.TypInfo
   ;
 
 type
@@ -74,13 +75,15 @@ type
   THashSet<T> = class(TInterfacedObject, ISet<T>)
   strict private
     FMap: TDictionary<T, Boolean>;
+    function GetKeys: TArray<T>;
   public
     constructor Create;
     destructor Destroy; override;
     procedure Include(const Item: T);
     procedure Exclude(const Item: T);
     function Contains(const Item: T): Boolean;
-    function ToString(): String;  virtual; abstract;
+    property Items: TArray<T> read GetKeys;
+
   end;
 
 implementation
@@ -106,6 +109,22 @@ end;
 procedure THashSet<T>.Exclude(const Item: T);
 begin
   FMap.Remove(Item);
+end;
+
+function THashSet<T>.GetKeys: TArray<T>;
+var arrT: TArray<T>;
+    i: integer;
+begin
+  i := 0;
+  SetLength(arrT, FMap.Count);
+  var enumerator := FMap.Keys.GetEnumerator();
+  while (enumerator.MoveNext) do
+  begin
+     arrT[i] := enumerator.Current;
+     inc(i);
+  end;
+  FreeAndNil(enumerator);
+  Exit(arrT);
 end;
 
 procedure THashSet<T>.Include(const Item: T);

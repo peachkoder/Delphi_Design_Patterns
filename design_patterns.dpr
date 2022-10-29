@@ -122,14 +122,6 @@ begin
 //  manager.ChangeLuminosity(NIGHT);
 //  manager.Free;
 
-//  Writeln('**********Structure hashset **********');
-//
-//  var setString: ISet<String> := THashSet<String>.Create;
-//  setString.Include('First String');
-//  setString.Include('Second String');
-//  setString.Include('Third String');
-//  setString.Include('First String');
-
   PrintSeparator('Responsability: MONITOR');
 
   PrintText('Debug', 'Creating Monitor...' , '');
@@ -174,8 +166,47 @@ begin
   weatherSensor.SendData(WS_UNKNOWN);
   PrintEnd;
 
+  // HashSet Structure
+  PrintSeparator('HashSet Structure');
+  PrintText('String HashSet', 'HashSet order is not granted', '');
+  var setString: ISet<String> := THashSet<String>.Create;
+  setString.Include('First String');
+  setString.Include('Second String');
+  setString.Include('Third String');
+  setString.Include('First String'); //<- won't be included
+
+  for var item in THashSet<String>(setString).Items do
+    WriteLn(item);
+  PrintEnd;
+
+  PrintText('Integer HashSet', 'HashSet order is not granted', '');
+  var setInt: ISet<Integer> := THashSet<Integer>.Create;
+  setInt.Include(1);
+  setInt.Include(2);
+  setInt.Include(3);
+  setInt.Include(1); //<- won't be included
+
+  for var item in THashSet<Integer>(setInt).Items do
+    WriteLn(item);
+  PrintEnd;
+
 
   var str: String;
   Readln(str);
 
 end.
+
+
+---------------------------
+Unexpected Memory Leak
+---------------------------
+An unexpected memory leak has occurred. The unexpected small block leaks are:
+
+1 - 12 bytes: TSingleton x 1
+29 - 36 bytes: TAdapterUser x 1, TUser x 1, UnicodeString x 4
+45 - 52 bytes: UnicodeString x 1
+
+---------------------------
+OK
+---------------------------
+
