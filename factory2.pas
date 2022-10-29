@@ -1,6 +1,20 @@
+{*******************************************************}
+{                                                       }
+{              DESIGN PATTERNS IN DELPHI                }
+{                                                       }
+{                CATEGORY : CREATIONAL                  }
+{                                                       }
+{                   TYPE  : FACTORY                     }
+{                                                       }
+{                                                       }
+{*******************************************************}
+
+
 unit factory2;
 
 interface
+
+uses SysUtils;
 
 type
 
@@ -23,11 +37,13 @@ end;
 ICar = interface
   function Color: String;
   function Price: Currency;
+  function ToString: String;
 end;
 
 IBoat = interface
   function Color: String;
   function Price: Currency;
+  function ToString: String;
 end;
 
 TCar = class(TInterfacedObject, ICar)
@@ -37,6 +53,7 @@ public
   constructor Create(Brand: IBrand);
   function Color: String;
   function Price: Currency;
+  function ToString: String;
 end;
 
 TBoat = class(TInterfacedObject, IBoat)
@@ -46,6 +63,7 @@ public
   constructor Create(Brand: IBrand);
   function Color: String;
   function Price: Currency;
+  function ToString: String;
 end;
 
 // Factory
@@ -108,48 +126,57 @@ end;
 function TCar.Price: Currency;
 begin
   result := FBrand.Price;
+end;
 
+function TCar.ToString: String;
+begin
+  result := Format('Car Brand: Color: %S, Engine: %S, Price: %f', [Color, FBrand.Engine, FBrand.Price]);
 end;
 
 { TBoat }
 
 function TBoat.Color: String;
 begin
-
+  result := 'white';
 end;
 
 constructor TBoat.Create(Brand: IBrand);
 begin
-
+  FBrand := Brand;
 end;
 
 function TBoat.Price: Currency;
 begin
+  result := FBrand.Price;
+end;
 
+function TBoat.ToString: String;
+begin
+  result := Format('Car Brand: Color: %S, Engine: %S, Price: %f', [Color, FBrand.Engine, FBrand.Price]);
 end;
 
 { TBmwFactory }
 
 function TBmwFactory.CreateBoat: IBoat;
 begin
-
+  Result := IBoat(TBoat.Create(TBmw.Create));
 end;
 
 function TBmwFactory.CreateCar: ICar;
 begin
-
+  Result := ICar(TCar.Create(TBmw.Create));
 end;
 
 { TAudiFactory }
 
 function TAudiFactory.CreateBoat: IBoat;
 begin
-
+  Result := IBoat(TBoat.Create(TAudi.Create));
 end;
 
 function TAudiFactory.CreateCar: ICar;
 begin
-
+  Result := ICar(TCar.Create(TAudi.Create));
 end;
 
 end.

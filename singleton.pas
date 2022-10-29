@@ -1,3 +1,14 @@
+{*******************************************************}
+{                                                       }
+{              DESIGN PATTERNS IN DELPHI                }
+{                                                       }
+{              CATEGORY : RESPONSABILITY                }
+{                                                       }
+{                   TYPE  : BUILDER                     }
+{                                                       }
+{                                                       }
+{*******************************************************}
+
 unit singleton;
 
 interface
@@ -17,8 +28,20 @@ public
    function ToString: String;
 end;
 
+(********************************************
+*   Understang the Double-Checked Lock       *
+*                                            *
+*                                            *
+*  This pattern double checks if an instance *
+* is null. In a scenario that more than      *
+* one thread is trying to create the ins_    *
+* tance, the double check gives a last       *
+* chance to avoid colision.                  *
+*                                            *
+*********************************************)
+
 // Thread Safe singleton. SLOWER but Safer
-TSingletonSafe = class
+TSingletonDCL = class
 strict private
   class var FCounter: Integer;
   class var FCriticalSection: TCriticalSection;
@@ -47,6 +70,7 @@ constructor TSingleton.Create;
 begin
    //strict protected don't use
    //method was hiden from user
+   FCounter := 0;
 end;
 
 class function TSingleton.CreateInstance: TSingleton;
@@ -71,15 +95,15 @@ begin
   result := String.Parse(integer(@FInstance));
 end;
 
-{ TSingletonSafe }
+{ TSingletonDCL }
 
-constructor TSingletonSafe.Create;
+constructor TSingletonDCL.Create;
 begin
   //strict protected don't use
   //method was hiden from user
 end;
 
-class function TSingletonSafe.CreateInstance: TSingleton;
+class function TSingletonDCL.CreateInstance: TSingleton;
 begin
   // checks if the instance is null
   if FInstance = nil then
@@ -99,12 +123,12 @@ begin
       FCriticalSection.Release;
       FreeAndNil(FCriticalSection);
       Inc(FCounter);
-      result := FInstance;
     end;
   end;
+  result := FInstance;
 end;
 
-class procedure TSingletonSafe.FreeInstance;
+class procedure TSingletonDCL.FreeInstance;
 begin
   Dec(FCounter);
   if(FCounter <= 0) then
@@ -114,7 +138,7 @@ begin
   end;
 end;
 
-class function TSingletonSafe.ToString: String;
+class function TSingletonDCL.ToString: String;
 begin
   result := String.Parse(integer(@FInstance));
 end;
@@ -123,12 +147,12 @@ end;
 
 class procedure TSingleFactory.TestConcurrency;
 begin
-  for var i := 1 to 20 do
+  for var i := 1 to 2 do
   begin
     TThread.CreateAnonymousThread(
     procedure ()
     begin
-      var instance := TSingletonSafe.CreateInstance;
+      var instance := TSingletonDCL.CreateInstance;
       var cs := TCriticalSection.Create;
       try
         cs.Acquire;

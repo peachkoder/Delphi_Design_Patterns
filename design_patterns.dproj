@@ -155,6 +155,10 @@
         <DCCReference Include="factory.pas"/>
         <DCCReference Include="singleton.pas"/>
         <DCCReference Include="factory2.pas"/>
+        <DCCReference Include="adpter.pas"/>
+        <DCCReference Include="responsability\PeachKoder.Structs.Observer.pas"/>
+        <DCCReference Include="collection\PeachKoder.Collection.Hashset.pas"/>
+        <DCCReference Include="responsability\PeachKoder.Monitor.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
