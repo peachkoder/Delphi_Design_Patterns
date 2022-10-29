@@ -116,7 +116,15 @@ type
 
   // MONITOR -----------------------------------------------------------
 
-  TMonitor = class(TInterfacedObject, IInterface)
+  IMonitor = interface
+    ['{4D85AE4D-B9EF-448A-AB61-3451E10BF581}']
+    procedure AddSensor(Sensor: ISensor<TFireSignal> ); overload;
+    procedure AddSensor(Sensor: ISensor<TWeatherSignal> ); overload;
+    procedure AddMechanical(Mechanical: array of IGear<TMechanicalGearAction> );
+    procedure AddEletrical(Eletrical: array of IGear<TEletricalGearAction> );
+  end;
+
+  TMonitor = class(TInterfacedObject, IMonitor)
   strict private
     FMechanicalGearList:  TList<IGear<TMechanicalGearAction>>;
     FEletricalGearList:   TList<IGear<TEletricalGearAction>>;
@@ -223,7 +231,7 @@ begin
   case Data of
     MG_OPEN:    WriteLn(Format('Opening the %s', [Name])) ;
     MG_CLOSED:  WriteLn(Format('Closing the %s', [Name])) ;
-    MG_UNKNOWN: WriteLn(Format('%s´s unknown command', [Name])) ;
+    MG_UNKNOWN: WriteLn(Format('%s unknown command', [Name])) ;
   end;
 
 end;
@@ -235,7 +243,7 @@ begin
   case Data of
     MG_OPEN:      WriteLn(Format('Opening the %s', [Name])) ;
     MG_CLOSED:    WriteLn(Format('Opening the %s', [Name])) ;
-    MG_UNKNOWN:   WriteLn(Format('%s´s unknown command', [Name])) ;
+    MG_UNKNOWN:   WriteLn(Format('%s unknown command', [Name])) ;
   end;
 
 end;
@@ -245,9 +253,9 @@ end;
 procedure TLight.Update(Data: TEletricalGearAction);
 begin
   case Data of
-    EG_ON:      WriteLn('Turning the light ON') ;
-    EG_OFF:     WriteLn('Turning the light OFF') ;
-    EG_UNKNOWN: WriteLn('Light´s unknown command') ;
+    EG_ON:      WriteLn(Format('Turning the %s ON', [Name])) ;
+    EG_OFF:     WriteLn(Format('Turning the %s OFF', [Name])) ;
+    EG_UNKNOWN: WriteLn(Format('%s unknown command', [Name])) ;
   end;
 
 end;
@@ -258,7 +266,6 @@ procedure TSensor<T>.SendData(Data: T);
 begin
   if Assigned(FEvent) then
     FEvent(Self, Data);
-
 end;
 
 { TFireSensor }
