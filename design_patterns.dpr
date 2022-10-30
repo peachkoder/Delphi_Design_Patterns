@@ -6,11 +6,11 @@ program design_patterns;
 
 uses
   System.SysUtils,
-  Builder in 'Builder.pas',
-  factory in 'factory.pas',
-  singleton in 'singleton.pas',
-  factory2 in 'factory2.pas',
-  adpter in 'adpter.pas',
+  Builder in 'creational\Builder.pas',
+  factory in 'creational\factory.pas',
+  singleton in 'creational\singleton.pas',
+  factory2 in 'creational\factory2.pas',
+  adpter in 'structural\adpter.pas',
   PeachKoder.Structs.Observer in 'responsability\PeachKoder.Structs.Observer.pas',
   PeachKoder.Collection.Hashset in 'collection\PeachKoder.Collection.Hashset.pas',
   PeachKoder.Monitor in 'responsability\PeachKoder.Monitor.pas',

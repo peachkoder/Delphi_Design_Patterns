@@ -151,11 +151,11 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Builder.pas"/>
-        <DCCReference Include="factory.pas"/>
-        <DCCReference Include="singleton.pas"/>
-        <DCCReference Include="factory2.pas"/>
-        <DCCReference Include="adpter.pas"/>
+        <DCCReference Include="creational\Builder.pas"/>
+        <DCCReference Include="creational\factory.pas"/>
+        <DCCReference Include="creational\singleton.pas"/>
+        <DCCReference Include="creational\factory2.pas"/>
+        <DCCReference Include="structural\adpter.pas"/>
         <DCCReference Include="responsability\PeachKoder.Structs.Observer.pas"/>
         <DCCReference Include="collection\PeachKoder.Collection.Hashset.pas"/>
         <DCCReference Include="responsability\PeachKoder.Monitor.pas"/>
