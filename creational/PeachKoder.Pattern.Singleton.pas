@@ -9,7 +9,7 @@
 {                                                       }
 {*******************************************************}
 
-unit singleton;
+unit PeachKoder.Pattern.Singleton;
 
 interface
 

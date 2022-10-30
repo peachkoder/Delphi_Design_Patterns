@@ -10,7 +10,7 @@
 {*******************************************************}
 
 
-unit factory2;
+unit PeachKoder.Pattern.Factory2;
 
 interface
 

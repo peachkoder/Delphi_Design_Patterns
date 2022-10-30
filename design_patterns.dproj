@@ -151,15 +151,15 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="creational\Builder.pas"/>
-        <DCCReference Include="creational\factory.pas"/>
-        <DCCReference Include="creational\singleton.pas"/>
-        <DCCReference Include="creational\factory2.pas"/>
-        <DCCReference Include="structural\adpter.pas"/>
-        <DCCReference Include="responsability\PeachKoder.Structs.Observer.pas"/>
-        <DCCReference Include="collection\PeachKoder.Collection.Hashset.pas"/>
-        <DCCReference Include="responsability\PeachKoder.Monitor.pas"/>
-        <DCCReference Include="structural\PeachKoder.Structural.Decorator.pas"/>
+        <DCCReference Include="creational\PeachKoder.Pattern.Builder.pas"/>
+        <DCCReference Include="creational\PeachKoder.Pattern.Factory.pas"/>
+        <DCCReference Include="creational\PeachKoder.Pattern.Singleton.pas"/>
+        <DCCReference Include="creational\PeachKoder.Pattern.Factory2.pas"/>
+        <DCCReference Include="structural\PeachKoder.Pattern.Adapter"/>
+        <DCCReference Include="responsability\PeachKoder.Pattern.Observer.pas"/>
+        <DCCReference Include="collection\PeachKoder.Pattern.Hashset.pas"/>
+        <DCCReference Include="responsability\PeachKoder.Pattern.Monitor.pas"/>
+        <DCCReference Include="structural\PeachKoder.Pattern.Decorator.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -8,7 +8,7 @@
 {                                                       }
 {*******************************************************}
 
-unit adpter;
+unit PeachKoder.Pattern;
 
 interface
 

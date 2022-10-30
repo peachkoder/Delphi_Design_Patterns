@@ -42,7 +42,7 @@
 {                                                       }
 {*******************************************************}
 
-unit PeachKoder.Structural.Decorator;
+unit PeachKoder.Pattern.Decorator;
 
 interface
 

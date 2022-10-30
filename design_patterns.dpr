@@ -6,15 +6,15 @@ program design_patterns;
 
 uses
   System.SysUtils,
-  Builder in 'creational\Builder.pas',
-  factory in 'creational\factory.pas',
-  singleton in 'creational\singleton.pas',
-  factory2 in 'creational\factory2.pas',
-  adpter in 'structural\adpter.pas',
-  PeachKoder.Structs.Observer in 'responsability\PeachKoder.Structs.Observer.pas',
-  PeachKoder.Collection.Hashset in 'collection\PeachKoder.Collection.Hashset.pas',
-  PeachKoder.Monitor in 'responsability\PeachKoder.Monitor.pas',
-  PeachKoder.Structural.Decorator in 'structural\PeachKoder.Structural.Decorator.pas';
+  PeachKoder.Pattern.Builder in 'creational\PeachKoder.Pattern.Builder.pas',
+  PeachKoder.Pattern.Factory in 'creational\PeachKoder.Pattern.Factory.pas',
+  PeachKoder.Pattern.Singleton in 'creational\PeachKoder.Pattern.Singleton.pas',
+  PeachKoder.Pattern.Factory2 in 'creational\PeachKoder.Pattern.Factory2.pas',
+  PeachKoder.Pattern in 'structural\PeachKoder.Pattern.Adapter',
+  PeachKoder.Pattern.Observer in 'responsability\PeachKoder.Pattern.Observer.pas',
+  PeachKoder.Pattern.Hashset in 'collection\PeachKoder.Pattern.Hashset.pas',
+  PeachKoder.Pattern.Monitor in 'responsability\PeachKoder.Pattern.Monitor.pas',
+  PeachKoder.Pattern.Decorator in 'structural\PeachKoder.Pattern.Decorator.pas';
 
 const
   TAB = Char(9);

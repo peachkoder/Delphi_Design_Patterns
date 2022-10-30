@@ -9,7 +9,7 @@
 {                                                       }
 {*******************************************************}
 
-unit factory;
+unit PeachKoder.Pattern.Factory;
 
 interface
 

@@ -9,7 +9,7 @@
 {                                                       }
 {*******************************************************}
 
-unit Builder;
+unit PeachKoder.Pattern.Builder;
 
 interface
 

@@ -22,7 +22,7 @@
 {                                                       }
 {*******************************************************}
 
-unit PeachKoder.Structs.Observer;
+unit PeachKoder.Pattern.Observer;
 
 interface
 

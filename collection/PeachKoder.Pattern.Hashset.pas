@@ -52,7 +52,7 @@
 {*******************************************************}
 
 
-unit PeachKoder.Collection.Hashset;
+unit PeachKoder.Pattern.Hashset;
 
 interface
 
