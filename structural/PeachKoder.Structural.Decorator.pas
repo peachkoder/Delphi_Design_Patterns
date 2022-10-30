@@ -67,9 +67,6 @@ type
     function ReloadTime: UInt16;
   public
     constructor Create;
-//    property Power      : Integer read FPower write FPower;
-//    property Ammunition : Integer read FAmmunition write FAmmunition;
-//    property ReloadTime : UInt16 read FReloadTime write FReloadTime;
   end;
 
   TWeaponDecorator = class(TInterfacedObject, IWeapon)
