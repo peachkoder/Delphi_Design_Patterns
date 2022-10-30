@@ -13,7 +13,8 @@ uses
   adpter in 'adpter.pas',
   PeachKoder.Structs.Observer in 'responsability\PeachKoder.Structs.Observer.pas',
   PeachKoder.Collection.Hashset in 'collection\PeachKoder.Collection.Hashset.pas',
-  PeachKoder.Monitor in 'responsability\PeachKoder.Monitor.pas';
+  PeachKoder.Monitor in 'responsability\PeachKoder.Monitor.pas',
+  PeachKoder.Structural.Decorator in 'structural\PeachKoder.Structural.Decorator.pas';
 
 const
   TAB = Char(9);
@@ -110,6 +111,7 @@ begin
 
   PrintText('Old User Type:', oldUser.ToString , '');
   PrintText('Adapter User Type:', adaptedUser.ToString , '');
+  //TAdapterUser(adaptedUser).Free;
   PrintEnd;
 
 //  Writeln('**********Observer Pattern************');
@@ -166,7 +168,50 @@ begin
   weatherSensor.SendData(WS_UNKNOWN);
   PrintEnd;
 
-  // HashSet Structure
+  //Structural Decorator -------------------------------------------------------
+
+  PrintSeparator('Structural Decorator');
+
+  var weapon: IWeapon :=  TWeapon.Create;
+  PrintText('Basic Weapon',Format('Weapon Power = %d', [weapon.Power]), '' );
+  PrintText('Basic Weapon',Format('Weapon Ammunition = %d', [weapon.Ammunition]), '' );
+  PrintText('Basic Weapon',Format('Weapon Reload Time = %d', [weapon.ReloadTime]), '' );
+  PrintEnd;
+
+  weapon  := THairLine.Create(weapon);
+  PrintText('Hairliner Decorator added',Format('Weapon Power = %d', [weapon.Power]), '' );
+  PrintText('Hairliner Decorator added',Format('Weapon Ammunition = %d', [weapon.Ammunition]), '' );
+  PrintText('Hairliner Decorator added',Format('Weapon Reload Time = %d', [weapon.ReloadTime]), '' );
+  PrintEnd;
+
+  weapon  := TBazooka.Create(weapon);
+  PrintText('Bazooka Decorator added',Format('Weapon Power = %d', [weapon.Power]), '' );
+  PrintText('Bazooka Decorator added',Format('Weapon Ammunition = %d', [weapon.Ammunition]), '' );
+  PrintText('Bazooka Decorator added',Format('Weapon Reload Time = %d', [weapon.ReloadTime]), '' );
+  PrintEnd;
+
+  weapon  := TLaser.Create(weapon);
+  PrintText('Laser Decorator added',Format('Weapon Power = %d', [weapon.Power]), '' );
+  PrintText('Laser Decorator added',Format('Weapon Ammunition = %d', [weapon.Ammunition]), '' );
+  PrintText('Laser Decorator added',Format('Weapon Reload Time = %d', [weapon.ReloadTime]), '' );
+  PrintEnd;
+
+//  Chain creation example:
+//  var weapon: IWeapon :=
+//      TLaser.Create(
+//        TBazooka.Create(
+//          THairLine.Create(
+//            TWeapon.Create
+//          )
+//        )
+//      );
+
+  PrintText('Weapon Shoot Procedure Chain...', '' , '' );
+  weapon.Shoot;
+  PrintEnd;
+
+  // HashSet Structure ---------------------------------------------------------
+
   PrintSeparator('HashSet Structure');
   PrintText('String HashSet', 'HashSet order is not granted', '');
   var setString: ISet<String> := THashSet<String>.Create;
@@ -200,11 +245,16 @@ end.
 ---------------------------
 Unexpected Memory Leak
 ---------------------------
-An unexpected memory leak has occurred. The unexpected small block leaks are:
-
-1 - 12 bytes: TSingleton x 1
-29 - 36 bytes: TAdapterUser x 1, TUser x 1, UnicodeString x 4
-45 - 52 bytes: UnicodeString x 1
+An unexpected memory leak has occurred. The unexpected small block leaks are:
+
+
+
+1 - 12 bytes: TSingleton x 1
+
+29 - 36 bytes: TAdapterUser x 1, TUser x 1, UnicodeString x 4
+
+45 - 52 bytes: UnicodeString x 1
+
 
 ---------------------------
 OK

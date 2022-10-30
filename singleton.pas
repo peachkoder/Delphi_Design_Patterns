@@ -68,7 +68,7 @@ uses System.Classes, System.SysUtils;
 
 constructor TSingleton.Create;
 begin
-   //strict protected don't use
+   //strict protected don't use it
    //method was hiden from user
    FCounter := 0;
 end;

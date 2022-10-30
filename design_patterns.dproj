@@ -159,6 +159,7 @@
         <DCCReference Include="responsability\PeachKoder.Structs.Observer.pas"/>
         <DCCReference Include="collection\PeachKoder.Collection.Hashset.pas"/>
         <DCCReference Include="responsability\PeachKoder.Monitor.pas"/>
+        <DCCReference Include="structural\PeachKoder.Structural.Decorator.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

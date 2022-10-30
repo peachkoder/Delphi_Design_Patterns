@@ -6,7 +6,6 @@
 {                                                       }
 {                   TYPE  : ADAPTER                     }
 {                                                       }
-{                                                       }
 {*******************************************************}
 
 unit adpter;
@@ -39,7 +38,7 @@ private
   function GetEmail: String;
   function GetName: String;
 public
-  constructor Create(OldUser: IUser; TaxNumber, Phone: String);
+  constructor Create(const OldUser: IUser; TaxNumber, Phone: String);
   destructor Destroy; override;
   function ToString: String;
   property TaxNumber: String read FTaxNumber;
@@ -70,7 +69,7 @@ end;
 
 { TAdapterUser }
 
-constructor TAdapterUser.Create(OldUser: IUser; TaxNumber, Phone: String);
+constructor TAdapterUser.Create(const OldUser: IUser; TaxNumber, Phone: String);
 begin
   FOldUser := TOldUser(OldUser);
   FTaxNumber := TaxNumber;
