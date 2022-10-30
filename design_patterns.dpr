@@ -14,7 +14,8 @@ uses
   PeachKoder.Pattern.Hashset in 'collection\PeachKoder.Pattern.Hashset.pas',
   PeachKoder.Pattern.Monitor in 'responsability\PeachKoder.Pattern.Monitor.pas',
   PeachKoder.Pattern.Decorator in 'structural\PeachKoder.Pattern.Decorator.pas',
-  PeachKoder.Pattern.Adapter in 'structural\PeachKoder.Pattern.Adapter.pas';
+  PeachKoder.Pattern.Adapter in 'structural\PeachKoder.Pattern.Adapter.pas',
+  PeachKoder.Pattern.Bridge in 'structural\PeachKoder.Pattern.Bridge.pas';
 
 const
   TAB = Char(9);
@@ -210,6 +211,48 @@ begin
   weapon.Shoot;
   PrintEnd;
 
+  //Structural Bridge ----------------------------------------------------------
+
+  PrintSeparator('Structural Bridge');
+
+  var orderedList: IListImpl := TOrderedListImpl.Create;
+
+  var listOne  := TBaseList.Create(orderedList);
+  listOne.Add('One');
+  listOne.Add('Two');
+  listOne.Add('Three');
+  listOne.Add('Four');
+
+  var listTwo := TOrnamentedList.Create(orderedList);
+  listTwo.ItemType := '+';
+  listTwo.Add('One');
+  listTwo.Add('Two');
+  listTwo.Add('Three');
+  listTwo.Add('Four');
+
+  var listThree := TNumberList.Create(orderedList);
+  listThree.Add('One');
+  listThree.Add('Two');
+  listThree.Add('Three');
+  listThree.Add('Four');
+
+  for var i := 0 to listOne.Count -1  do
+    PrintText('listOne', listOne.Get(i), '');
+  PrintEnd;
+ 
+  for var i := 0 to listTwo.Count -1  do
+    PrintText('listTwo', listTwo.Get(i), '');
+  PrintEnd;
+  
+  for var i := 0 to listThree.Count -1  do
+    PrintText('listThree', listThree.Get(i), '');
+  PrintEnd;
+
+  listOne.Free;
+  listTwo.Free;
+  listThree.Free;
+  
+
   // HashSet Structure ---------------------------------------------------------
 
   PrintSeparator('HashSet Structure');
@@ -241,22 +284,4 @@ begin
 
 end.
 
-
----------------------------
-Unexpected Memory Leak
----------------------------
-An unexpected memory leak has occurred. The unexpected small block leaks are:
-
-
-
-1 - 12 bytes: TSingleton x 1
-
-29 - 36 bytes: TAdapterUser x 1, TUser x 1, UnicodeString x 4
-
-45 - 52 bytes: UnicodeString x 1
-
-
----------------------------
-OK
----------------------------
 

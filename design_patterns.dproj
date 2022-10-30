@@ -160,6 +160,7 @@
         <DCCReference Include="responsability\PeachKoder.Pattern.Monitor.pas"/>
         <DCCReference Include="structural\PeachKoder.Pattern.Decorator.pas"/>
         <DCCReference Include="structural\PeachKoder.Pattern.Adapter.pas"/>
+        <DCCReference Include="structural\PeachKoder.Pattern.Bridge.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
