@@ -155,11 +155,11 @@
         <DCCReference Include="creational\PeachKoder.Pattern.Factory.pas"/>
         <DCCReference Include="creational\PeachKoder.Pattern.Singleton.pas"/>
         <DCCReference Include="creational\PeachKoder.Pattern.Factory2.pas"/>
-        <DCCReference Include="structural\PeachKoder.Pattern.Adapter"/>
         <DCCReference Include="responsability\PeachKoder.Pattern.Observer.pas"/>
         <DCCReference Include="collection\PeachKoder.Pattern.Hashset.pas"/>
         <DCCReference Include="responsability\PeachKoder.Pattern.Monitor.pas"/>
         <DCCReference Include="structural\PeachKoder.Pattern.Decorator.pas"/>
+        <DCCReference Include="structural\PeachKoder.Pattern.Adapter.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
